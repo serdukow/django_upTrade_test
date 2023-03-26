@@ -36,11 +36,10 @@ def draw_menu(context, menu_name):
         else:
             root_items.append(item_value)
 
-    return {'menu_items': root_items, 'menu_name': menu_name}
-
+    return {'menu_parts': root_items, 'menu_name': menu_name}
 
 
 @register.inclusion_tag('menu/menu_parts.html')
 def menu_parts(items):
-    return {'item_list': items}
+    return {'items': items}
 
