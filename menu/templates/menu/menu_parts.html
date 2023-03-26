@@ -1,0 +1,32 @@
+{% load tree %}
+
+{% for item in item_list %}
+  {% with item.children as item_set %}
+    <li class="list-group-item border-0">
+
+      {% if item_set %}
+        <button class="btn btn-link d-flex align-items-center collapsed"
+                type="button"
+                data-toggle="collapse"
+                data-target="#{{ item.menu_name }}-{{ item.item_id }}"
+                aria-expanded="false"
+                aria-controls="{{ item.menu_name }}-{{ item.item_id }}">
+          <span class="fas {% if not item.expand %}fa-caret-right{% else %}fa-caret-down{% endif %} mr-2"></span>
+          {{ item.title }}
+        </button>
+      {% else %}
+        <a href="{{ item.href }}" class="btn btn-link d-flex align-items-center">
+          {{ item.title }}
+        </a>
+      {% endif %}
+
+      {% if item_set %}
+        <div class="collapse {% if item.expand %}show{% endif %}"
+             id="{{ item.menu_name }}-{{ item.item_id }}">
+          {% menu_parts item_set %}
+        </div>
+      {% endif %}
+
+    </li>
+  {% endwith %}
+{% endfor %}
